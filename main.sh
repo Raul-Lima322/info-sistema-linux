@@ -26,13 +26,19 @@ dividir
 #Cpu (Processador)
 echo -e "${verde}[-]Processador ${reset}" 
 echo ""
-echo "Cpu: $(grep -m 1 'model name' /proc/cpuinfo | cut -d: -f2 | sed 's/^[ \t]*//') e $(grep -c 'processor' /proc/cpuinfo) Threads"
+echo "Cpu: $(grep -m 1 'model name' /proc/cpuinfo | cut -d: -f2 | sed 's/^[ \t]*//')"
 dividir
 
 #Memória Ram
 echo -e "${verde}[-]Memória Ram ${reset}"
 echo ""
-echo "$(free -h | grep -E "Total|Mem" | awk '{print "Total:           " $2 "\nEm Uso:          " $3 "\nLivre:           " $7}')"
+echo "$(free -h | grep -E "Total|Mem" | awk '{print "Total:         " $2 "\nEm Uso:        " $3 "\nLivre:         " $7}')"
+dividir
+
+#Placa de video
+echo -e "${verde}[-]Placa de video ${reset}"
+echo ""
+echo "Gpu: $(lspci | grep -i "vga\|3d\|display" | cut -d':' -f3- | sed 's/(rev.*//' | xargs)"
 dividir
 
 #Rede
